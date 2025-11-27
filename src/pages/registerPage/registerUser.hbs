@@ -1,0 +1,24 @@
+<div class="auth__page">
+    <form class="auth__card">
+        <div>
+           <h1>Регистрация</h1>
+            <div class="auth__input">
+                {{#with user}}
+                    {{> Input id="email-input" type="email" name="email" placeholder="enter email" value=email label="Почта" }}
+                    {{> Input id="login-input" type="text" name="login" placeholder="enter login" value=login label="Логин"}}
+                    {{> Input id="firstName-input" type="text" name="first-name" placeholder="enter first name" value=firstName label="Имя" }}
+                    {{> Input id="secondName-input" type="text" name="second-name" placeholder="enter second name" value=secondName label="Фамилия" }}
+                    {{> Input id="phone-input" type="text" name="phone" placeholder="enter phone" value=phone label="Телефон"}}
+                    {{> Input id="password-input" type="password" name="password" placeholder="enter password" value=password label="Пароль"}}
+                    {{> Input id="repeatPassword-input" type="password" name="repeat-password" 
+                        placeholder="enter password again" value=repeatPassword label="Пароль (еще раз)"}}
+                {{/with}}
+            </div> 
+        </div>
+        <div class="auth__buttons">
+            {{> Button id="register-button" content="Зарегистрироваться"}}
+            {{> Link id="sing-on-link" class='page-link' data-page="login" content="Войти"}} 
+        </div>
+    </form>
+    {{> Footer}}
+</div>

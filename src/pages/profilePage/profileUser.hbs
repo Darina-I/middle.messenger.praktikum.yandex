@@ -1,0 +1,32 @@
+<div class="profile__page">
+    <div class="back__block flex__center">
+        {{> Button id="back-button" content='
+        <svg width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier" transform="rotate(180 12 12)">
+                <path d="M20 12L4 12M20 12L14 18M20 12L14 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </svg>
+        ' isRounded=true}}
+    </div>
+    
+    <div class="profile__info">
+        <div class="profile__photo"></div>
+        <div>Иван</div>
+        <table class="profile__table">
+            {{#each user}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td class="value">{{value}}</td>
+                </tr>
+            {{/each}}
+        </table>
+        <div class="profile__links">
+            {{> Link id="change-info-link" content="Изменить данные"}} 
+            {{> Link id="change-password-link" content="Изменить пароль"}} 
+            {{> Link id="logout-link" content="Выйти"}} 
+        </div>
+        {{> Footer}}
+    </div>
+</div>

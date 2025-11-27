@@ -1,0 +1,1 @@
+export { default as CurrentChat } from './currentChatBlock.hbs?raw';

@@ -1,0 +1,94 @@
+.chat{
+    width: 80%;
+    padding: 20px;
+    display: flex;
+}
+
+.chat__no-messages{
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color-gray);
+}
+
+.chat__has-messages{
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user__info{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+.user__name{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.photo-circle{
+    width: 40px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    border-radius: 100%;
+}
+
+.list__messages{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 20px;
+}
+
+.message{
+    max-width: 60%;
+    padding: 10px;
+    border-radius: var(--rounded);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.message__to-user{
+    background-color: #F8F8F8;
+}
+
+.message__from-user{
+    background-color: #E4EDFD;
+    align-self: end;
+}
+
+.message__time{
+    color: var(--primary-color);
+    font-size: 12px;
+    align-self: end;
+}
+
+.time-gray{
+    color: var(--text-color-gray);
+}
+
+.message__send{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.message__input{
+    width: 92%;
+}
+
+.message-send__button{
+    width: 35px;
+}
+
+.message-send__button > button{
+    padding: 5px 0;
+    border-radius: 100%;
+}
+
+

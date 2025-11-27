@@ -1,0 +1,57 @@
+.profile__page{
+    display: flex;
+    height: 100vh;
+}
+
+.back__block{
+    background-color: var(--secondary-color);
+    width: 5%;
+}
+
+.profile__info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile__photo{
+    width: 100px;
+    height: 100px;
+    background-color: var(--secondary-color);
+    border-radius: 100%;
+}
+
+.profile__table{
+    border-collapse: collapse;
+    width: 30%;
+}
+
+.profile__table td{
+    border-bottom: 1px solid var(--secondary-color);
+    padding: 10px 0;
+
+    &.value{
+        color: var(--text-color-gray);
+        text-align: right;
+    }
+}
+
+.profile__links{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin-top: 3%;
+}
+
+.profile__links > a{
+    border-bottom: 1px solid var(--secondary-color);
+    padding: 10px 0;
+
+    &:last-child{
+        color: red;
+    }
+}
+

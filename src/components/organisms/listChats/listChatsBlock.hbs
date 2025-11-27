@@ -1,0 +1,29 @@
+<div class="block__chats">
+    <div class="profile__link">
+        {{> Link id="profile-link" class='page-link' data-page="profile" content="Профиль >"}}
+    </div>
+    {{> SearchInput }}
+    <ul class="list__chats">
+        {{#each chats}}
+            <li class="chat__card" data-id="{{id}}">
+                <div class="gray-circle"></div>
+                <div class="chat__message">
+                    <div>{{withUser}}</div>
+                    <div class="message__text">
+                        <p>{{#if islastMessageToUser}} Вы: {{/if}}</p>
+                        <p>{{lastMessage}}</p>
+                    </div>
+                </div>
+                <div class="message__datetime">
+                    <div>{{dateTime}}</div>
+                    {{#if countUnreadMessage}}
+                        <div class="message__unread flex__center">
+                            {{countUnreadMessage}} 
+                        </div> 
+                    {{/if}}  
+                </div>
+            </li>
+        {{/each}}
+        {{> Footer}}
+    </ul>
+</div>
