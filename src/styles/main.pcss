@@ -7,6 +7,7 @@
 :root{
     --primary-color: #3369F3;
     --secondary-color: #EFEFEF;
+    --third-color: #E4EDFD;
     --error-color: #FF0000;
     --hover-color: #034affff;
     --text-color-gray: #999999;
@@ -18,7 +19,7 @@ body{
     margin: 0;
 }
 
-h1{
+h1, h3{
     text-align: center;
     font-weight: normal;
     margin: 0;
@@ -26,9 +27,17 @@ h1{
 
 input{
     border: none;
-    border-bottom: 1px solid var(--primary-color);
-    padding-bottom: 3px;
+    padding: 3px 3px;
     width: 100%;
+
+    &:not(.edit-profile__input){
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    &.edit-profile__input{
+        text-align: right;
+        color: var(--text-color-gray);
+    }
 }
 
 input[type="search"], input[name="message"]{
@@ -45,14 +54,13 @@ input[type="search"]{
 label{
     display: block;
     font-size: 12px;
-    color: #999999;
+    color: var(--text-color-gray);;
 }
 
 button{
     background-color: var(--primary-color);
     border: 0;
     color: white;
-    
     cursor: pointer;
 
     &:not(.round) {
@@ -99,12 +107,15 @@ p, ul{
     height: 100vh;
 }
 
-.footer{
+.menu{
     padding: 18px 10px;
-}
 
-.footer > a{
-    margin-right: 10px;
+    ul{
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
 }
 
 .error__page{
