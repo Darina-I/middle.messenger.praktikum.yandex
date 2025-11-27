@@ -6,3 +6,5 @@ export default `<footer class="footer">
     {{> Link href="#" class='page-link' data-page="error500" content="Ошибка 500"}}
     {{> Link href="#" class='page-link' data-page="error404" content="Ошибка 404"}}
 `;
+
+
