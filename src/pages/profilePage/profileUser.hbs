@@ -10,23 +10,68 @@
         </svg>
         ' isRounded=true}}
     </div>
-    
     <div class="profile__info">
-        <div class="profile__photo"></div>
-        <div>Иван</div>
-        <table class="profile__table">
-            {{#each user}}
-                <tr>
-                    <td>{{name}}</td>
-                    <td class="value">{{value}}</td>
-                </tr>
-            {{/each}}
-        </table>
-        <div class="profile__links">
-            {{> Link id="change-info-link" content="Изменить данные"}} 
-            {{> Link id="change-password-link" content="Изменить пароль"}} 
-            {{> Link id="logout-link" content="Выйти"}} 
+        <div id="avatar" class="profile__photo flex__center">
+            <span>Поменять аватар</span>
         </div>
+        {{#if isOpenChangeAvatar}} {{> ChangeAvatar }}{{/if}}
+        {{#unless isEditProfile}}<div>Иван</div>{{/unless}}
+        
+        <form>
+            <table class="profile__table">
+                {{#if isChangePassword}}
+                    <tr>
+                        <td>Старый пароль</td>
+                        <td class="value">
+                            {{> Input id='oldPassword' class="edit-profile__input" type="password" name='oldPassword' 
+                            placeholder='Старый пароль' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Новый пароль</td>
+                        <td class="value">
+                            {{> Input id='newPassword' class="edit-profile__input" type="password" name='newPassword' 
+                            placeholder='Новый пароль' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Повторите новый пароль</td>
+                        <td class="value">
+                            {{> Input id='repeat_newPassword' class="edit-profile__input" type="password" name='repeatNewPassword' 
+                            placeholder='Повторите новый пароль' }}
+                        </td>
+                    </tr>
+                {{else}}
+                    {{#each user}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td class="value">
+                                {{#if ../isEditProfile}}
+                                    {{> Input id=inputName class="edit-profile__input" type="text" name=inputName placeholder=name value=value }}
+                                {{else}}
+                                    {{value}}
+                                {{/if}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                {{/if}}
+            </table>
+            {{#if isEditProfile}}
+                {{> Button id="edit-button" type="submit" content="Сохранить"}}
+            {{else}}
+                {{#if isChangePassword}}
+                    {{> Button id="change-password-button" type="submit" content="Сохранить"}}
+                {{else}}
+                    <div class="profile__links">
+                        {{> Link id="change-info-link" content="Изменить данные"}} 
+                        {{> Link id="change-password-link" content="Изменить пароль"}} 
+                        {{> Link id="logout-link" content="Выйти"}} 
+                    </div>
+                {{/if}}
+            {{/if}}
+        </form>
+
+        
         {{> Footer}}
     </div>
 </div>

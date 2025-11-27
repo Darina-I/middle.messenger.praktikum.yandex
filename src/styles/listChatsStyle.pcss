@@ -1,8 +1,12 @@
+:root{
+    --list-chat-color: #FBFBFB;
+}
+
 .block__chats{
     padding: 14px;
     display: fixed;
     top: 0;
-    background-color: #FBFBFB;
+    background-color: var(--list-chat-color);
     width: 20%;
     border-right: 1px solid var(--secondary-color);
 }
@@ -35,7 +39,7 @@
     cursor: pointer;
 
     &:hover{
-       background-color:  #E4EDFD;
+       background-color:  var(--third-color);
     }
 }
 
