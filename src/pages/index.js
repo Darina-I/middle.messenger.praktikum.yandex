@@ -1,4 +1,4 @@
-export { LoginPage } from "./LoginPage";
+export { LoginPage } from "./loginPage";
 export { RegisterPage } from "./registerPage";
 export { ChatPage } from "./chatPage";
 export { ProfilePage } from "./profilePage";
