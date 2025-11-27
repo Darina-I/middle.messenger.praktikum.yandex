@@ -1,0 +1,116 @@
+.profile__page{
+    display: flex;
+    height: 100vh;
+}
+
+.back__block{
+    background-color: var(--secondary-color);
+    width: 5%;
+}
+
+.profile__info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile__photo{
+    width: 100px;
+    height: 100px;
+    background-color: var(--secondary-color);
+    border-radius: 100%;
+    cursor: pointer;
+
+    &:hover{
+        background-color: var(--text-color-gray);
+
+        span{
+            opacity: 1;
+        }
+    }
+}
+
+.profile__photo span{
+    font-size: 12px;
+    opacity: 0;
+    text-align: center;
+    color: white;
+}
+
+.profile__info form{
+    width: 30%;
+}
+
+.profile__table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.profile__table td{
+    border-bottom: 1px solid var(--secondary-color);
+    padding: 10px 0;
+
+    &.value{
+        color: var(--text-color-gray);
+        text-align: right;
+    }
+}
+
+.profile__links{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15%;
+}
+
+.profile__links > a{
+    border-bottom: 1px solid var(--secondary-color);
+    padding: 10px 0;
+
+    &:last-child{
+        color: red;
+    }
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content{
+    background: white;
+    height: 30%;
+    width: 20%;
+    border-radius: var(--rounded);
+    padding: 20px;
+
+    form{
+        flex-direction: column;
+        gap: 40px;
+        width: 100%;
+        height: 100%;
+    }
+
+    input{
+        display: none;
+    }
+
+    label{
+        color: var(--primary-color);
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+}
+
+
+
+

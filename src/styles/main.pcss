@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import 'authStyle.pcss';
+@import 'listChatsStyle.pcss';
+@import 'chatStyle.pcss';
+@import 'profileStyle.pcss';
+
+:root{
+    --primary-color: #3369F3;
+    --secondary-color: #EFEFEF;
+    --third-color: #E4EDFD;
+    --error-color: #FF0000;
+    --hover-color: #034affff;
+    --text-color-gray: #999999;
+    --rounded: 8px;
+}
+
+body{
+    font-family: "Inter";
+    margin: 0;
+}
+
+h1, h3{
+    text-align: center;
+    font-weight: normal;
+    margin: 0;
+}
+
+input{
+    border: none;
+    padding: 3px 3px;
+    width: 100%;
+
+    &:not(.edit-profile__input){
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    &.edit-profile__input{
+        text-align: right;
+        color: var(--text-color-gray);
+    }
+}
+
+input[type="search"], input[name="message"]{
+    background-color: var(--secondary-color);
+    border: 0;
+    padding: 10px 7px;
+    border-radius: var(--rounded);
+}
+
+input[type="search"]{
+    text-align: center;
+}
+
+label{
+    display: block;
+    font-size: 12px;
+    color: var(--text-color-gray);;
+}
+
+button{
+    background-color: var(--primary-color);
+    border: 0;
+    color: white;
+    cursor: pointer;
+
+    &:not(.round) {
+        width: 100%;
+        border-radius: var(--rounded);
+        padding: 10px 0;
+    }
+
+    &.round{
+        padding: 7px;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    &:hover{
+        background-color: var(--hover-color);
+    }
+}
+
+a{
+    font-size: 14px;
+    color: var(--primary-color);
+    text-decoration: none;
+
+    &:hover{
+        color: var(--hover-color);
+    }
+}
+
+p, ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+.flex__center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chats__page{
+    display: flex;
+    height: 100vh;
+}
+
+.menu{
+    padding: 18px 10px;
+
+    ul{
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+.error__page{
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.error__page h1{
+    font-size: 50px;
+}

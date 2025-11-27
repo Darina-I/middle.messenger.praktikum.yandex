@@ -1,0 +1,19 @@
+<div class="auth__page">
+    <form class="auth__card">
+        <div>
+           <h1>Вход</h1>
+            <div class="auth__input">
+                {{> Input id="login-input" type="text" name="login" placeholder="enter login" value=login label="Логин" }}
+                {{> Input id="password-input" type="password" name="password" placeholder="enter password" value=password label="Пароль"}}
+            </div> 
+        </div>
+        <div class="auth__buttons">
+            {{> Button id="sing-on-button" type="submit" content="Войти"}}
+            {{> Link id="register-link" class='page-link' data-page="register" content="Нет аккаунта?"}} 
+        </div>
+    </form>
+    {{> Footer}}
+</div>
+
+
+
