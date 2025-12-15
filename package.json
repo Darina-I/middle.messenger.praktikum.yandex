@@ -6,15 +6,26 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
-    "start": "vite build && node server.cjs"
+    "start": "vite build && node server.cjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts && tsc --noEmit",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "lint:style": "stylelint \"**/*.pcss\"",
+    "lint:style:fix": "stylelint \"**/*.pcss\" --fix"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.49.0",
+    "@typescript-eslint/parser": "^8.49.0",
     "autoprefixer": "^10.4.22",
+    "eslint": "^9.39.1",
     "postcss": "^8.5.6",
     "postcss-preset-env": "^10.4.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^39.0.1",
+    "typescript": "^5.9.3",
     "vite": "^7.2.4"
   },
   "dependencies": {

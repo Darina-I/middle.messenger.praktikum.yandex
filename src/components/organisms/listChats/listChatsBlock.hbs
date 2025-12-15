@@ -1,8 +1,8 @@
 <div class="block__chats">
     <div class="profile__link">
-        {{> Link id="profile-link" class='page-link' data-page="profile" content="Профиль >"}}
+        {{{ LinkProfile }}}
     </div>
-    {{> SearchInput }}
+    {{{ SearchInput }}}
     <ul class="list__chats">
         {{#each chats}}
             <li class="chat__card" data-id="{{id}}">
@@ -24,8 +24,12 @@
                 </div>
             </li>
         {{/each}}
-        {{> Footer}}
+        {{{ Footer }}}
     </ul>
 </div>
+
+
+
+
 
 
