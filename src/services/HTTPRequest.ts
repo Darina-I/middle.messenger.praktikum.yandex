@@ -6,32 +6,31 @@ enum METHOD {
 };
 
 type HTTPBody = FormData | Record<string, string> | null;
+type HTTPMethod = (url: string, options?: Options) => Promise<XMLHttpRequest>;
 
 type Options = {
     method: METHOD;
     data?: HTTPBody;
 };
 
-type OptionsWithoutMethod = Omit<Options, 'method'>;
-
 class HTTPTransport {
-    get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
+    get: HTTPMethod = (url, options) => {
         return this.request(url, {...options, method: METHOD.GET});
     };
 
-    post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest>{
+    post: HTTPMethod = (url, options) => {
         return this.request(url, {...options, method: METHOD.POST});
     };
 
-    put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest>{
+    put: HTTPMethod = (url, options) => {
         return this.request(url, {...options, method: METHOD.PUT});
     };
 
-    delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest>{
+    delete: HTTPMethod = (url, options) => {
         return this.request(url, {...options, method: METHOD.DELETE});
     };
 
-    request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
+    request: HTTPMethod = (url, options = { method: METHOD.GET }) => {
         const {method, data} = options;
 
         return new Promise((resolve, reject) => {
