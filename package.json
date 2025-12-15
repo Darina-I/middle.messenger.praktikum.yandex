@@ -25,6 +25,7 @@
     "postcss-preset-env": "^10.4.0",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
+    "typescript": "^5.9.3",
     "vite": "^7.2.4"
   },
   "dependencies": {
