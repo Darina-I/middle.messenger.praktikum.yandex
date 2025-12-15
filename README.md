@@ -7,7 +7,11 @@
 ## Установка
 'npm install' - установить зависимости проекта  
 'npm run build' - собрать проект  
-'npm run start' - запустить проект на localhost  
+'npm run start' - запустить проект на localhost 
+'npm run lint' - проверка TypeScript и ESLint 
+'npm run lint:fix' - автоисправление ESLint 
+'npm run lint:style' - проверка стилей 
+'npm run lint:style:fix' - автоисправление стилей
 
 ## Ссылки
 Netlify: https://reliable-licorice-e7bbd7.netlify.app/
