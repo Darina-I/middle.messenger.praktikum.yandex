@@ -64,3 +64,6 @@ export const registerValidator = new FormValidator();
 export const messageValidator = new FormValidator();
 export const changePasswordValidator = new FormValidator();
 export const profileValidator = new FormValidator();
+
+
+
