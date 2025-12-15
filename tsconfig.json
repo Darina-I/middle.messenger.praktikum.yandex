@@ -8,12 +8,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noEmit": true, 
-    "strictNullChecks": true,
+    "strictNullChecks": true
   },
+
   "include": [
     "src/**/*.ts",
     ".eslintrc.cjs",
-    "vite-env.d.ts",
+    "vite-env.d.ts"
   ]
 }
 
