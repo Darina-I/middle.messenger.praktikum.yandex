@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-@import 'authStyle.pcss';
-@import 'listChatsStyle.pcss';
-@import 'chatStyle.pcss';
-@import 'profileStyle.pcss';
+@import url('authStyle.pcss');
+@import url('listChatsStyle.pcss');
+@import url('chatStyle.pcss');
+@import url('profileStyle.pcss');
 
 :root{
     --primary-color: #3369F3;
     --secondary-color: #EFEFEF;
     --third-color: #E4EDFD;
-    --error-color: #FF0000;
+    --error-color: #F00;
     --hover-color: #034affff;
-    --text-color-gray: #999999;
+    --text-color-gray: #999;
     --rounded: 8px;
 }
 
 body{
-    font-family: "Inter";
+    font-family: Inter, sans-serif;
     margin: 0;
 }
 
@@ -27,7 +27,7 @@ h1, h3{
 
 input{
     border: none;
-    padding: 3px 3px;
+    padding: 3px;
     width: 100%;
 
     &:not(.edit-profile__input){
@@ -92,8 +92,8 @@ a{
 }
 
 p, ul{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .flex__center{
@@ -127,4 +127,10 @@ p, ul{
 
 .error__page h1{
     font-size: 50px;
+}
+
+.error{
+    font-size: 10px;
+    color: red;
+    padding-top: 5px;
 }
