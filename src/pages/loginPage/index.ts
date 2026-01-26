@@ -1,17 +1,19 @@
 import { Button } from '../../components/atoms/Button';
-import { Footer } from '../../components/molecules/Footer';
 import { FullInput } from '../../components/molecules/FullInput';
 import { Link } from '../../components/atoms/Link';
 import Block from '../../framework/Block';
 import template from './loginUser.hbs?raw';
-import { PropsWithChangePage } from '../../types';
 import { loginValidator } from '../../utils/validators';
+import { AuthController } from '../../controllers/authController';
+import { SignInData } from '../../types/responseData';
 
 export class LoginPageBlock extends Block {
-    constructor(props: PropsWithChangePage) {
+    private authController = new AuthController();
+
+    constructor() {
         super({
             events: {
-                submit: (e: Event) => {
+                submit: async(e: Event) => {
                     e.preventDefault();
 
                     const form = e.target as HTMLFormElement;
@@ -20,14 +22,10 @@ export class LoginPageBlock extends Block {
 
                     const isValid = loginValidator.validateForm(data as Record<string, string>);
                     if(!isValid){
-                        console.log('Форма невалидны');
-                        console.log('Ошибки:', loginValidator.getErrors());
+                        return;
                     }
-                    else{
-                        console.log('Форма валидны');
-                        console.log('Данные формы:', data);
-                        props.onChangePage('chat');
-                    } 
+
+                    await this.authController.login(data as unknown as SignInData);
                 }
             },
             InputLogin: new FullInput({
@@ -60,14 +58,10 @@ export class LoginPageBlock extends Block {
                     click: (e: Event) => {
                         e.preventDefault();
                         e.stopPropagation();
-
-                        props.onChangePage('register');
+                        window.router.go('/sign-up');
                     },
                 },
-            }),
-            Footer: new Footer({
-                onChangePage: props.onChangePage,
-            }),
+            })
         });
     }
 

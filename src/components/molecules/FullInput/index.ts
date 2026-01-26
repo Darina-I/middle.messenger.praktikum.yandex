@@ -15,6 +15,13 @@ export class FullInput extends Block {
         });
     }
 
+    setValue(value: string): void {
+        const inputComponent = this.children.Input as Block;
+        if (inputComponent && 'setProps' in inputComponent){
+            inputComponent.setProps({value});
+        }
+    }
+
     override render() {
         return template;
     }

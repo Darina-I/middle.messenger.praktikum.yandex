@@ -246,32 +246,38 @@ export const mockUserProfile=[
     {
         inputName: 'Почта',
         value: 'pochta@yandex.ru',
-        name: 'email',  
+        name: 'email', 
+        inputKey: null,
     },
     {
         inputName: 'Логин',
         value: 'ivanivanov',
         name: 'login',  
+        inputKey: null,
     },
     {
         inputName: 'Имя',
         value: 'Иван',
-        name: 'first_name',  
+        name: 'first_name', 
+        inputKey: null, 
     },
     {
         inputName: 'Фамилия',
         value: 'Иванов',
-        name: 'second_name',  
+        name: 'second_name',
+        inputKey: null,  
     },
     {
         inputName: 'Имя в чате',
         value: 'Иван',
         name: 'display_name',  
+        inputKey: null,
     },
     {
         inputName: 'Телефон',
         value: '+7 (909) 967 30 30',
         name: 'phone',  
+        inputKey: null,
     }
 ];
 

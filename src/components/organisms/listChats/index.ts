@@ -1,15 +1,15 @@
 import { Link } from '../../atoms/Link';
-import { Footer } from '../../molecules/Footer';
 import { SearchInput } from '../../molecules/Search';
 import Block from '../../../framework/Block';
 import template from './listChatsBlock.hbs?raw';
-import { mockChats } from '../../../mockData';
-import { ListChatsProps } from '../../../types';
+import { ListChatsProps } from '../../../types/chatTypes';
+import { CreateChatBlock } from '../../molecules/Chat/CreateChat';
 
 export class ListChatsBlock extends Block {
     constructor(props: ListChatsProps) {
         super({
-            chats: mockChats,
+            chats: props.allChats,
+            isOpenCreateChat: false,
             LinkProfile: new Link({
                 id: 'profile-link',
                 class: 'page-link',
@@ -19,27 +19,48 @@ export class ListChatsBlock extends Block {
                     click: (e: Event) => {
                         e.preventDefault();
                         e.stopPropagation();
-
-                        props.onChangePage('profile');
+                        window.router.go('/settings');
                     },
                 },
             }),
             SearchInput: new SearchInput(),
-            Footer: new Footer({
-                onChangePage: props.onChangePage,
+            CreateChatLink: new Link({
+                id: 'create-chat-link',
+                class: 'create-chat',
+                content: '+ Создать чат',
+                events: {
+                    click: (e: Event) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.setProps({ isOpenCreateChat: true });
+                    },
+                },
+            }),
+            CreateChatPopup: new CreateChatBlock({
+                updateInfo: () => props.onUpdateChats(),
+                closePopup: () => {
+                    this.setProps({ isOpenCreateChat: false });
+                },
             }),
             events: {
                 click: (e: Event) => {
                     const target = e.target as HTMLElement;
                     const chatCard = target.closest('.chat__card') as HTMLElement;
+                    if(chatCard){
+                        const currentChat = Object.fromEntries(Object.entries(chatCard.dataset)) as Record<string,string>;
 
-                    const chatId = chatCard?.dataset.id;
-                    if(chatId){
-                        props.onChangeChat(chatId);
+                        if(currentChat){
+                            props.onChangeChat(currentChat);
+                        }
                     }
                 }
             }
         });
+    }
+
+    setProps(nextProps: Record<string, unknown>) {
+        if (nextProps.allChats) this.props.chats = nextProps.allChats;
+        super.setProps(nextProps);
     }
 
     override render(): string {

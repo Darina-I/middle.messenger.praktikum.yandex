@@ -1,9 +1,11 @@
 import EventBus from './EventBus';
 import Handlebars from 'handlebars';
+import Router from './router';
 
 interface Props { 
     attr?: Record<string, string>;
     events?: Record<string, EventListener>;
+    router?: Router;
     [key: string]: unknown 
 };
 
@@ -48,6 +50,14 @@ export default class Block {
 
         Object.keys(events).forEach(eventName => {
             this._element?.addEventListener(eventName, events[eventName]);
+        });
+    }
+
+    private _removeEvents(): void {
+        const {events = {}} = this.props;
+
+        Object.keys(events).forEach(eventName => {
+            this._element?.removeEventListener(eventName, events[eventName]);
         });
     }
 
@@ -100,7 +110,6 @@ export default class Block {
         this._render();
     }
 
-    // Может переопределять пользователь, необязательно трогать
     protected componentDidUpdate(): boolean {
         return true;
     }
@@ -115,7 +124,7 @@ export default class Block {
 
     private _render(): void {
         const currentProps = {...this.props};
-        // const tmpId = Math.floor(1000000 + Math.random() * 9000000);
+
         Object.entries(this.children).forEach(([key, child]) => {
             currentProps[key] = `<div data-id="${child._id}"></div>`;
         });
@@ -132,6 +141,7 @@ export default class Block {
 
         const newElement = fragment.content.firstElementChild as HTMLElement;
         if(this._element && newElement){
+            this._removeEvents();
             this._element.replaceWith(newElement);
         }
 
