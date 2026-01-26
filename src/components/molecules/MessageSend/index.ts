@@ -5,7 +5,7 @@ import template from './messageInput.hbs?raw';
 import { messageValidator } from '../../../utils/validators';
 
 export class MessageInput extends Block {
-    constructor(){
+    constructor(props: {onSendMessage: (content: string) => void}){
         super({
             MessageInput: new Input({
                 id: 'message-input',
@@ -26,17 +26,13 @@ export class MessageInput extends Block {
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
                     const data = Object.fromEntries(formData.entries());
-                    console.log('Данные формы:', data);
 
                     const isValid = messageValidator.validateForm(data as Record<string, string>);
-                    if(!isValid){
-                        console.log('Форма невалидны');
-                        console.log('Ошибки:', messageValidator.getErrors());
-                    }
-                    else{
-                        console.log('Форма валидны');
-                        console.log('Данные формы:', data);
-                    }
+                    if(!isValid){ return;}
+                    
+                    const content = String(formData.get('message'));
+                    props.onSendMessage(content);
+                    form.reset();
                 }
             },
         });

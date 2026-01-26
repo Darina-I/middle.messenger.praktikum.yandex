@@ -1,14 +1,16 @@
 import { Button } from '../../components/atoms/Button';
-import { Footer } from '../../components/molecules/Footer';
 import { FullInput } from '../../components/molecules/FullInput';
 import { Link } from '../../components/atoms/Link';
 import Block from '../../framework/Block';
 import template from './registerUser.hbs?raw';
-import { PropsWithChangePage } from '../../types';
 import { registerValidator } from '../../utils/validators';
+import { AuthController } from '../../controllers/authController';
+import { UserData } from '../../types/responseData';
 
 export class RegisterPageBlock extends Block {
-    constructor(props: PropsWithChangePage) {
+    private authController = new AuthController();
+
+    constructor() {
         super({
             InputEmail: new FullInput({
                 id: 'email-input',
@@ -81,15 +83,12 @@ export class RegisterPageBlock extends Block {
                         e.preventDefault();
                         e.stopPropagation();
 
-                        props.onChangePage('login');
+                        window.router.go('/');
                     },
                 },
             }),
-            Footer: new Footer({
-                onChangePage: props.onChangePage,
-            }),
             events: {
-                submit: (e: Event) => {
+                submit: async(e: Event) => {
                     e.preventDefault();
 
                     const form = e.target as HTMLFormElement;
@@ -97,15 +96,10 @@ export class RegisterPageBlock extends Block {
                     const data = Object.fromEntries(formData.entries());
 
                     const isValid = registerValidator.validateForm(data as Record<string, string>);
-                    if(!isValid){
-                        console.log('Форма невалидны');
-                        console.log('Ошибки:', registerValidator.getErrors());
-                    }
-                    else{
-                        console.log('Форма валидны');
-                        console.log('Данные формы:', data);
-                        props.onChangePage('chat');
-                    }                    
+                    if(!isValid){ return; }
+
+                    const { repeatPassword, ...signupData } = data;
+                    await this.authController.register(signupData as unknown as UserData);                
                 }
             },
         });

@@ -40,10 +40,10 @@
 }
 
 .list__messages{
-    height: 80%;
+    height: 85%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    overflow-y: auto;
     gap: 20px;
 }
 
@@ -58,6 +58,7 @@
 
 .message__to-user{
     background-color: var(--message-to-user-color);
+    align-self: start;
 }
 
 .message__from-user{
@@ -69,6 +70,11 @@
     color: var(--primary-color);
     font-size: 12px;
     align-self: end;
+}
+
+.message__date{
+    align-self: center;
+    color: var(--text-color-gray);
 }
 
 .time-gray{
@@ -94,5 +100,57 @@
     padding: 5px 0;
     border-radius: 100%;
 }
+
+.select-menu{
+    position: absolute;
+    right: 20px;
+    top: 75px;
+    background: var(--secondary-color);
+    font-size: 12px;
+    border-radius: var(--rounded);
+
+    > div{
+        padding: 10px;
+        cursor: pointer;
+        border-radius: var(--rounded);
+
+        &:hover {
+            background: var(--third-color);
+        }
+    }
+}
+
+#open-select{
+    cursor: pointer;
+}
+
+.form__search-user{
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+    margin-top: 15px;
+}
+
+.search__users, .delete__users{
+    max-height: 150px;
+    overflow-y: auto;
+    margin: 10px;
+
+    label{
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        padding: 10px;
+        
+        &:hover{
+            background: var(--third-color);
+        }
+    }
+
+    input{
+        width: fit-content;
+    }
+}
+
 
 

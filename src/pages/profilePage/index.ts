@@ -1,42 +1,68 @@
 import { Button } from '../../components/atoms/Button';
-import { Footer } from '../../components/molecules/Footer';
 import { FullInput } from '../../components/molecules/FullInput';
 import { Link } from '../../components/atoms/Link';
 import { ChangeAvatarBlock } from '../../components/molecules/ChangeAvatar';
 import Block from '../../framework/Block';
 import template from './profileUser.hbs?raw';
 import { mockUserProfile } from '../../mockData';
-import { PropsWithChangePage } from '../../types';
 import { profileValidator, changePasswordValidator } from '../../utils/validators';
+import { AuthController } from '../../controllers/authController';
+import { NewPasswordData, UserData } from '../../types/responseData';
+import { UserController } from '../../controllers/userController';
 
 export class ProfilePageBlock extends Block {
-    constructor(props: PropsWithChangePage) {
+    private authController = new AuthController();
+    private userController = new UserController();
+
+    public loadUserData(userData: Record<string, any>): void {
+        const avatar = userData.avatar || '';
+
+        const mappedUser = Object.entries(userData)
+            .filter(([name]) => name !== 'avatar' && name !== 'id')
+            .map(([name, value]) => {
+                const inputName = mockUserProfile.find((field) => field.name === name)?.inputName;
+                return {
+                    name,
+                    value: value && String(value),
+                    inputName,
+                    inputKey: `Input_${inputName}`
+                };
+            });
+
+        mappedUser.forEach(({ value, inputName }) => {
+            const inputKey = `Input_${inputName}`;
+            const input = this.children[inputKey] as FullInput;
+            if (input && value) {
+                input.setValue(String(value));
+            }
+        });
+
+        this.children.ChangeAvatar = new ChangeAvatarBlock({
+            closePopup: () => this.setProps({ isOpenChangeAvatar: false }),
+        });
+
+        this.setProps({ user: mappedUser, currentAvatar: avatar });
+    }
+
+    constructor() {
 
         const inputs: Record<string, FullInput> = {};
 
-        const user = mockUserProfile.map((field) => {
-        const key = `Input_${field.inputName}`;
-
-        inputs[key] = new FullInput({
-            id: field.name,
-            class: 'edit-profile__input',
-            type: 'text',
-            name: field.name,
-            placeholder: field.inputName,
-            value: field.value,
-            validator: profileValidator,
-        });
-
-        return {
-            name: field.name,
-            value: field.value,
-            inputName: field.inputName,
-            inputKey: key,             
-        };
+        mockUserProfile.forEach((field) => {
+            const key = `Input_${field.inputName}`;
+            inputs[key] = new FullInput({
+                id: field.name,
+                class: 'edit-profile__input',
+                type: 'text',
+                name: field.name,
+                placeholder: field.inputName,
+                value: '',
+                validator: profileValidator,
+            });
         });
 
         super({
-            user,
+            user: mockUserProfile,
             ...inputs,
             isOpenChangeAvatar: false,
             isEditProfile: false,
@@ -62,7 +88,6 @@ export class ProfilePageBlock extends Block {
                 type: 'password',
                 name: 'oldPassword',
                 placeholder: 'Старый пароль',
-
             }),
             InputNewPassword: new FullInput({
                 id: 'newPassword',
@@ -73,11 +98,12 @@ export class ProfilePageBlock extends Block {
                 validator: changePasswordValidator,
             }),
             InputRepeatPassword: new FullInput({
-                id: 'repeat_newPassword',
+                id: 'repeatNewPassword',
                 class: 'edit-profile__input',
                 type: 'password',
                 name: 'repeatNewPassword',
                 placeholder: 'Повторите новый пароль',
+                validator: changePasswordValidator,
             }),
             ButtonEdit: new Button({
                 id: 'edit-button',
@@ -95,7 +121,6 @@ export class ProfilePageBlock extends Block {
                 events: {
                     click: (e: Event) => {
                         e.preventDefault();
-
                         this.setProps({ isEditProfile: true }); 
                     }
                 }
@@ -106,7 +131,6 @@ export class ProfilePageBlock extends Block {
                 events: {
                     click: (e: Event) => {
                         e.preventDefault();
-
                         this.setProps({ isChangePassword: true });
                     },
                 },
@@ -115,44 +139,41 @@ export class ProfilePageBlock extends Block {
                 id: 'logout-link',
                 content: 'Выйти',
                 events: {
-                    click: (e: Event) => {
+                    click: async(e: Event) => {
                         e.preventDefault();
                         e.stopPropagation();
-
-                        props.onChangePage('login');
+                        await this.authController.logout();
                     },
                 },
             }),
-            Footer: new Footer({
-                onChangePage: props.onChangePage,
-            }),
             events: {
-                submit: (e: Event) => {
+                submit: async(e: Event) => {
                     e.preventDefault();
                     const submitButton = (e.target as HTMLElement).querySelector('button[type="submit"]:focus');
-                    let validator = profileValidator;
-                    if (submitButton?.id === 'edit-button'){
-                        this.setProps({ isEditProfile: false }); 
-                    }
-                    else if (submitButton?.id === 'change-password-button'){
-                        this.setProps({ isChangePassword: false });
-                        validator = changePasswordValidator;
-                    }
+                    const buttonId = submitButton?.id;
+                    const validator = buttonId === 'edit-button' ? profileValidator : changePasswordValidator;
 
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
                     const data = Object.fromEntries(formData.entries());
 
                     const isValid = validator.validateForm(data as Record<string, string>);
-                    if(!isValid){
-                        console.log('Форма невалидны');
-                        console.log('Ошибки:', validator.getErrors());
+
+                    if(!isValid){ return; }
+
+                    if(buttonId === 'edit-button'){
+                        const userResponse = await this.userController.updateUser(data as unknown as UserData);
+                        this.setProps({ isEditProfile: false }); 
+                        if(userResponse?.response){
+                            const userData = JSON.parse(userResponse.response);
+                            this.loadUserData(userData);   
+                        }
                     }
-                    else{
-                        console.log('Форма валидны');
-                        console.log('Данные формы:', data);
-                        props.onChangePage('chat');
-                    } 
+                    else if(buttonId === 'change-password-button'){
+                        const { repeatNewPassword, ...updatePasswordData } = data;
+                        await this.userController.updatePassword(updatePasswordData as unknown as NewPasswordData);
+                        this.setProps({ isChangePassword: false }); 
+                    }
                 },
                 click: (e: Event) => {
                     const target = e.target as HTMLElement;
@@ -161,17 +182,27 @@ export class ProfilePageBlock extends Block {
                     }
 
                     if (target.closest('#back-button')) {
-                        props.onChangePage('chat');
-                        return;
+                        window.router.go('/messenger');
                     }
                 },
             }
+        });
+
+        this.authController.getUser().then((userResponse) => {
+            if(userResponse?.response){
+                const userData = JSON.parse(userResponse.response);
+                this.loadUserData(userData);   
+            }
+        }).catch((error) => {
+            console.error('Ошибка загрузки:', error);
         });
     }
 
     override render(): string {
         return template;
     }
+
+
 }
 
 

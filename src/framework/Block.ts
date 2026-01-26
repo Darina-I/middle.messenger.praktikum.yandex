@@ -1,9 +1,11 @@
 import EventBus from './EventBus';
 import Handlebars from 'handlebars';
+import Router from './router';
 
 interface Props { 
     attr?: Record<string, string>;
     events?: Record<string, EventListener>;
+    router?: Router;
     [key: string]: unknown 
 };
 

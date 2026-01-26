@@ -1,0 +1,24 @@
+<div class="modal flex__center">
+    <div class="modal__content">
+        <p class="title-popup">Добавить пользователя</p>
+        <form id='form-searchUser' class="form__search-user">
+            {{{ InputSearch }}}
+            {{{ ButtonSearch }}}
+        </form>
+        <form id="add_user">
+            <div class="search__users">
+                {{#each resultSearch}}
+                    <label>
+                        <input type="radio" name="users" value={{id}} /><p>{{first_name}} {{second_name}}</p>
+                    </label>
+                {{/each}}
+            </div>
+            {{{ ButtonAddUser }}}
+            {{{ ButtonBack }}}
+        </form>
+    </div>
+</div>
+`
+
+
+
