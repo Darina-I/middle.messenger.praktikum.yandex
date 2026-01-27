@@ -45,7 +45,14 @@ export class AddUserToChat extends Block {
                     if(form.id === 'form-searchUser'){
                         const data = Object.fromEntries(formData.entries());
                         const response = await this.userController.searchUser(data as unknown as SearchUserData);
-                        const usersData = JSON.parse(response?.response);
+                        let usersData;
+                        try{
+                          usersData = JSON.parse(response?.response);  
+                        } catch(error){
+                            console.error('Ошибка в парсинге JSON-ответа', error);
+                            return;
+                        }
+                        
                         this.setProps({ resultSearch: usersData });
                     }
                     else if(form.id === 'add_user'){
