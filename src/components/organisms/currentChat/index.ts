@@ -152,7 +152,14 @@ export class CurrentChatBlock extends Block {
             });
 
             socket.addEventListener('message', event => {
-                const data = JSON.parse(event.data as string);
+                let data;
+                try{
+                    data = JSON.parse(event.data as string);  
+                } catch (error) {
+                    console.error('Ошибка парсинга Websocket сообщения', error)
+                    return;
+                }
+                
 
                 if (data.type === 'pong' || data.type === 'user connected') return;
 

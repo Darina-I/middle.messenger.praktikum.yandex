@@ -165,7 +165,14 @@ export class ProfilePageBlock extends Block {
                         const userResponse = await this.userController.updateUser(data as unknown as UserData);
                         this.setProps({ isEditProfile: false }); 
                         if(userResponse?.response){
-                            const userData = JSON.parse(userResponse.response);
+                            let userData;
+                            try{
+                                userData = JSON.parse(userResponse.response);
+                            } catch(error){
+                                console.error('Ошибка в парсинге JSON-ответа', error);
+                                return;
+                            }
+
                             this.loadUserData(userData);   
                         }
                     }

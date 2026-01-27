@@ -57,7 +57,15 @@ export class DeleteUserFromChat extends Block {
 
     private async loadUsersChat(chatId?: string) {
         const usersResponse = await this.chatController.getUsers(String(chatId));
-        const usersData = JSON.parse(usersResponse?.response);
+        
+        let usersData;
+        try{
+            usersData = JSON.parse(usersResponse?.response);
+        } catch(error){
+            console.error('Ошибка в парсинге JSON-ответа', error);
+            return;
+        }
+
         this.setProps({ users: usersData });
     }
 

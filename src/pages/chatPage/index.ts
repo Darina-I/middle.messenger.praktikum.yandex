@@ -36,7 +36,14 @@ export class ChatPageBlock extends Block {
 
     public async loadChatsData() {
         const chatResponse = await this.chatController.getChats();
-        const chatsData = JSON.parse(chatResponse?.response);
+        
+        let chatsData;
+        try{
+            chatsData = JSON.parse(chatResponse?.response);
+        } catch(error){
+            console.error('Ошибка в парсинге JSON-ответа', error);
+            return;
+        }
 
         chatsData.forEach((chat: Chat) => {
             if(chat.last_message?.time) {
