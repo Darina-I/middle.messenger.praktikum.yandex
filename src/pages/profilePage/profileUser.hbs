@@ -3,11 +3,20 @@
         {{{ ButtonBack }}}
     </div>
     <div class="profile__info">
-        <div id="avatar" class="profile__photo flex__center">
+        <div id="avatar" class="profile__photo flex__center"
+            style="background-image: url('https://ya-praktikum.tech/api/v2/resources{{currentAvatar}}');">
             <span>Поменять аватар</span>
         </div>
-        {{#if isOpenChangeAvatar}} {{{ ChangeAvatar }}}{{/if}}
-        {{#unless isEditProfile}}<div>Иван</div>{{/unless}}
+        {{#if isOpenChangeAvatar}} {{{ ChangeAvatar }}} {{/if}}
+        {{#unless isEditProfile}}
+            <div>
+                {{#each user}}
+                    {{#if @first}}
+                        {{value}}
+                    {{/if}}
+                {{/each}}
+            </div>
+        {{/unless}}
         
         <form>
             <table class="profile__table">
@@ -33,7 +42,7 @@
                 {{else}}
                     {{#each user}}
                         <tr>
-                            <td>{{name}}</td>
+                            <td>{{inputName}}</td>
                             <td class="value">
                                 {{#if ../isEditProfile}}
                                     {{{ lookup .. inputKey }}}

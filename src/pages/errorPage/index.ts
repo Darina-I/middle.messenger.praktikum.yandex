@@ -17,7 +17,7 @@ export class ErrorPageBlock extends Block {
                         e.preventDefault();
                         e.stopPropagation();
 
-                        props.onChangePage('chat');
+                       window.router.go('/messenger');
                     },
                 },
             }),
@@ -29,6 +29,24 @@ export class ErrorPageBlock extends Block {
     }
 }
 
+
+export class Error404Page extends ErrorPageBlock {
+    constructor(){
+        super({
+            error: '404',
+            content: 'Не туда попали'
+        });
+    }
+}
+
+export class Error500Page extends ErrorPageBlock {
+    constructor(){
+        super({
+            error: '500',
+            content: 'Мы уже фиксим'
+        });
+    }
+}
 
 
 

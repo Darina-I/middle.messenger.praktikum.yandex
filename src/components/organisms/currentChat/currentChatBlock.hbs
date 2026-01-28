@@ -1,11 +1,12 @@
-<div class="chat {{#if chatMessages}}chat__has-messages{{else}}chat__no-messages{{/if}}">
-    {{#if chatMessages}}
+<div class="chat {{#if chat}}chat__has-messages{{else}}chat__no-messages{{/if}}">
+    {{#if chat}}
         <div class="user__info">
             <div class="user__name">
                <div class="photo-circle"></div>
-                <p>Вадим</p> 
+                <p>{{chat.title}}</p> 
             </div>
-            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg id="open-select"
+                width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier"> 
@@ -14,12 +15,23 @@
                     <path d="M13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19Z" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
                 </g>
             </svg>
+            {{#if isOpenSelect}}
+                <div class="select-menu">
+                    <div id="add-user">Добавить пользователя</div>
+                    <div id="delete-user">Удалить пользователя</div>
+                    <div id="delete-chat">Удалить чат</div>
+                </div>
+            {{/if}}
+            {{#if isOpenAddUser}} {{{ AddUser }}} {{/if}}
+            {{#if isOpenDeleteUser}} {{{ DeleteUser }}} {{/if}}
+            {{#if isOpenDeleteChat }} {{{ DeleteChat }}} {{/if}}
         </div>
         <div class="list__messages">
-            {{#each chatMessages}}
-                <div class="message{{#if isToUser}} message__to-user {{else}} message__from-user {{/if}}">
+            {{#each messages}}
+                {{#if showDate}}<div class="message__date">{{date}}</div>{{/if}}
+                <div class="message{{#if isOwn }} message__to-user {{else}} message__from-user {{/if}}">
                     <p>{{content}}</p>
-                    <p class="message__time {{#if isToUser}} time-gray{{/if}}">{{time}}</p>
+                    <p class="message__time {{#if isOwn}} time-gray{{/if}}">{{time}}</p>
                 </div>
             {{/each}}
         </div>

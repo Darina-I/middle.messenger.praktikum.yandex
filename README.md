@@ -7,22 +7,19 @@
 ## Установка
 'npm install' - установить зависимости проекта  
 'npm run build' - собрать проект  
-'npm run start' - запустить проект на localhost 
-'npm run lint' - проверка TypeScript и ESLint 
-'npm run lint:fix' - автоисправление ESLint 
-'npm run lint:style' - проверка стилей 
+'npm run start' - запустить проект на localhost  
+'npm run lint' - проверка TypeScript и ESLint  
+'npm run lint:fix' - автоисправление ESLint  
+'npm run lint:style' - проверка стилей  
 'npm run lint:style:fix' - автоисправление стилей
 
 ## Ссылки
 Netlify: https://reliable-licorice-e7bbd7.netlify.app/
 
 ## Страницы приложения
-Переход между всеми страницами реализован через нижнее меню (Footer), где data-page содержит страницу, на которую необходимо перейти
-```
-{{> Link href="#" class='page-link' data-page="login" content="Авторизация"}}
-{{> Link href="#" class='page-link' data-page="register" content="Регистрация"}}
-{{> Link href="#" class='page-link' data-page="chat" content="Список чатов"}}
-{{> Link href="#" class='page-link' data-page="profile" content="Профиль"}}
-{{> Link href="#" class='page-link' data-page="error500" content="Ошибка 500"}}
-{{> Link href="#" class='page-link' data-page="error404" content="Ошибка 404"}}
-```
+'/' - страница входа  
+'/sign-up' - страница регистрации  
+'/setting' - настройки профиля пользователя  
+'/messeger' - чат  
+'/error404' - ошибка 404  
+'/error500' - ошибка 500  

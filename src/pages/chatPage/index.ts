@@ -1,26 +1,69 @@
 import { CurrentChatBlock } from '../../components/organisms/currentChat';
 import { ListChatsBlock } from '../../components/organisms/listChats';
+import { ChatController } from '../../controllers/chatController';
 import Block from '../../framework/Block';
-import { ChatPageProps } from '../../types';
 import template from './chatPage.hbs?raw';
+import { getDate, getTime } from '../../utils/dateUtils';
+import { Chat } from '../../types/chatTypes';
 
 export class ChatPageBlock extends Block {
-    constructor(props: ChatPageProps) {
+    private chatController = new ChatController();
+
+    constructor() {
         super({
             ListChats: new ListChatsBlock({
-                onChangePage: props.onChangePage,
-                onChangeChat: props.onChangeChat,
+                onChangeChat: (currentChat: Record<string, string>) => this.selectChat(currentChat),
+                onUpdateChats: () => this.loadChatsData(),
             }),
             CurrentChat: new CurrentChatBlock({
-                chatMessages: props.chatMessages,
+                onUpdateChats: () => this.loadChatsData(),
             })
         });
+
+        this.loadChatsData();
     }
 
     override render(): string {
         return template;
     }
+
+    private async selectChat(currentChat: Record<string, string>){
+        const currentChatBlock = this.children.CurrentChat as CurrentChatBlock;
+        currentChatBlock.setProps({
+            currentChat: currentChat,
+        });
+    }
+
+    public async loadChatsData() {
+        const chatResponse = await this.chatController.getChats();
+        
+        let chatsData;
+        try{
+            chatsData = JSON.parse(chatResponse?.response);
+        } catch(error){
+            console.error('Ошибка в парсинге JSON-ответа', error);
+            return;
+        }
+
+        chatsData.forEach((chat: Chat) => {
+            if(chat.last_message?.time) {
+                const time = chat.last_message.time;
+                const chatDate = getDate(time, 'short');
+                const today = new Date().toLocaleDateString('ru-RU', {
+                    day: 'numeric',
+                    month: 'short',
+                });
+
+                chat.last_message.time = chatDate === today ? getTime(time) : chatDate;
+            }
+        });
+
+        const listChatsBlock = this.children.ListChats as ListChatsBlock;
+        listChatsBlock.setProps({ allChats: chatsData });
+    }
 }
+
+
 
 
 

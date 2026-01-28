@@ -3,28 +3,32 @@
         {{{ LinkProfile }}}
     </div>
     {{{ SearchInput }}}
+    {{{ CreateChatLink }}}
+    {{#if isOpenCreateChat}} {{{ CreateChatPopup }}} {{/if}}
     <ul class="list__chats">
         {{#each chats}}
-            <li class="chat__card" data-id="{{id}}">
+            <li class="chat__card" 
+                data-id="{{id}}"
+                data-title="{{title}}"
+            >
                 <div class="gray-circle"></div>
                 <div class="chat__message">
-                    <div>{{withUser}}</div>
-                    <div class="message__text">
-                        <p>{{#if islastMessageToUser}} Вы: {{/if}}</p>
-                        <p>{{lastMessage}}</p>
-                    </div>
+                    <div>{{ title }}</div>
+                        <div class="message__text">
+                            <p>{{last_message.content}}</p>
+                        </div>
                 </div>
+
                 <div class="message__datetime">
-                    <div>{{dateTime}}</div>
-                    {{#if countUnreadMessage}}
+                    <div>{{last_message.time}}</div>
+                    {{#if last_message.unread_count}}
                         <div class="message__unread flex__center">
-                            {{countUnreadMessage}} 
+                            {{last_message.unread_count}} 
                         </div> 
                     {{/if}}  
                 </div>
             </li>
         {{/each}}
-        {{{ Footer }}}
     </ul>
 </div>
 

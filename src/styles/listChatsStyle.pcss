@@ -4,8 +4,6 @@
 
 .block__chats{
     padding: 14px;
-
-    /* display: fixed; */
     top: 0;
     background-color: var(--list-chat-color);
     width: 20%;
@@ -60,7 +58,7 @@
     text-overflow: ellipsis;
 }
 
-.chat__message > div:first-child, .message__text > p:first-child{
+.chat__message > div:first-child{
     color: black;
     font-weight: bold;
 }
@@ -73,7 +71,7 @@
 
 .message__datetime{
     font-size: 12px;
-    width: 10%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,4 +85,15 @@
     width: 22px;
     height: 22px;
     color: white;
+}
+
+.modal--chat{
+    form{
+        display: flex;
+        justify-content: center;
+    }
+
+    input{
+        width: 100%;
+    }
 }

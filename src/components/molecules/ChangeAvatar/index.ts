@@ -2,10 +2,13 @@ import { Button } from '../../atoms/Button';
 import { FullInput } from '../FullInput';
 import Block from '../../../framework/Block';
 import template from './changeAvatar.hbs?raw';
-import { ChangeAvatarProps } from '../../../types';
+import { PopupProps } from '../../../types';
+import { UserController } from '../../../controllers/userController';
 
 export class ChangeAvatarBlock extends Block {
-    constructor(props: ChangeAvatarProps) {
+    private userController = new UserController();
+
+    constructor(props: PopupProps) {
         super({
             InputAvatar: new FullInput({
                 id: 'avatar-input',
@@ -19,14 +22,13 @@ export class ChangeAvatarBlock extends Block {
                 content: 'Поменять',
             }),
             events: {
-                submit: (e: Event) => {
+                submit: async(e: Event) => {
                     e.preventDefault();
 
                     const form = e.target as HTMLFormElement;
                     const formData = new FormData(form);
-                    const data = Object.fromEntries(formData.entries());
-                    console.log('Данные формы:', data);
-                    
+
+                    await this.userController.updateAvatar(formData);
                     props.closePopup();
                 }
             }

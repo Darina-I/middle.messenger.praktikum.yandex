@@ -1,0 +1,23 @@
+<div class="modal flex__center">
+    <div class="modal__content">
+        <p class="title-popup">Удалить пользователей</p>
+        <form>
+            {{#if users.length}}
+                <div class="delete__users">
+                    {{#each users}}
+                        <label>
+                            <input type="checkbox" name="users" value={{id}}>
+                            <p>{{last_name}} {{first_name}}</p>
+                        </label>
+                    {{/each}}
+                </div>
+            {{/if}}
+            {{{ ButtonDeleteUser }}}
+            {{{ ButtonBack }}}
+        </form>
+        
+    </div>
+</div>
+
+
+
