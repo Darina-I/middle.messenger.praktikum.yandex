@@ -9,7 +9,7 @@ enum METHOD {
 
 type HTTPBody = FormData | SignInData | UserData | NewPasswordData 
     | CreateChatData | SearchUserData | AddUserData | DeleteUsersData 
-    | DeleteChatData |null;
+    | DeleteChatData | null | Record<string, string>;
 type HTTPMethod = (url: string, data?: HTTPBody) => Promise<XMLHttpRequest>;
 
 type RequestMethod = (url: string, options?: RequestOptions) => Promise<XMLHttpRequest>;

@@ -9,15 +9,6 @@ const validatePassword = (value: string): string => {
 };
 
 export const validators = {
-    // first_name: (value: string): string => {
-    //     const regex = /^[A-ZА-Я][a-zа-я-]*$/;
-    //     return regex.test(value) ? '' : 'Латиница/кириллица, с заглавной буквы, без цифр, без спец. символов (кроме -), без пробелов';
-    // },
-
-    // second_name: (value: string): string => {
-    //     const regex = /^[A-ZА-Я][a-zа-я-]*$/;
-    //     return regex.test(value) ? '' : 'Латиница/кириллица, с заглавной буквы, без цифр, без спец. символов (кроме -), без пробелов';
-    // },
     first_name: validateName,
     second_name: validateName,
 
@@ -31,10 +22,6 @@ export const validators = {
         return regex.test(value) ? '' : 'Латиница, пример: example@ex.ex';
     },
 
-    // password: (value: string): string => {
-    //     const regex = /^(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!*$#@]{8,40}$/;
-    //     return regex.test(value) ? '' : '8-40 символов, хотя бы одна заглавная буква и цифра';
-    // },
     password: validatePassword,
     newPassword: validatePassword,
 
