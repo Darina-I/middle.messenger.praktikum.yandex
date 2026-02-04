@@ -68,4 +68,10 @@ describe('Block', () => {
         button.hide(); 
         expect(element.style.display).toBe('none');
     });
-});  
+});
+
+
+
+
+
+
