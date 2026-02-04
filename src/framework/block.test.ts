@@ -1,5 +1,5 @@
-import { ButtonProps } from "../types";
-import Block from "./Block";
+import { ButtonProps } from '../types';
+import Block from './Block';
 
 describe('Block', () => {
     let buttonBlock: new(props: ButtonProps) => Block;
@@ -11,7 +11,7 @@ describe('Block', () => {
             }
 
             render(){
-                return `<div id={{id}}>{{content}}</div>`;
+                return '<div id={{id}}>{{content}}</div>';
             }
         }
         buttonBlock = Button;
@@ -68,4 +68,4 @@ describe('Block', () => {
         button.hide(); 
         expect(element.style.display).toBe('none');
     });
-})  
+});  

@@ -1,4 +1,4 @@
-import Router from "./router";
+import Router from './router';
 
 describe('Router', () => {
     let router: Router;
@@ -55,5 +55,5 @@ describe('Router', () => {
             expect(pushStateSpy).toHaveBeenCalledTimes(2);
         });
 
-    })
-})
+    });
+});

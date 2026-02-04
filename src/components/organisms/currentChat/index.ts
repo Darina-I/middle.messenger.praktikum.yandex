@@ -156,7 +156,7 @@ export class CurrentChatBlock extends Block {
                 try{
                     data = JSON.parse(event.data as string);  
                 } catch (error) {
-                    console.error('Ошибка парсинга Websocket сообщения', error)
+                    console.error('Ошибка парсинга Websocket сообщения', error);
                     return;
                 }
                 

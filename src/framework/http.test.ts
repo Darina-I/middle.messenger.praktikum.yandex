@@ -61,7 +61,7 @@ describe('HTTPTransport', () => {
             expect(mockXHR.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'application/json');
             expect(mockXHR.send).toHaveBeenCalledWith(JSON.stringify(data));
         });
-    })
+    });
 
     describe('PUT', () => {
         it('c JSON', async () => {
