@@ -11,7 +11,8 @@
 'npm run lint' - проверка TypeScript и ESLint  
 'npm run lint:fix' - автоисправление ESLint  
 'npm run lint:style' - проверка стилей  
-'npm run lint:style:fix' - автоисправление стилей
+'npm run lint:style:fix' - автоисправление стилей  
+'npm run test' - запуск тестов
 
 ## Ссылки
 Netlify: https://reliable-licorice-e7bbd7.netlify.app/
