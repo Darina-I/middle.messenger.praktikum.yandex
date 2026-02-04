@@ -16,8 +16,6 @@ export abstract class BaseAPI {
     delete() { throw new Error('Not implemented'); }
 }
 
-const x: string = 123; // ❌ Ошибка типов
-
 
 
 
