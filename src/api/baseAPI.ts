@@ -1,4 +1,4 @@
-import HTTPTransport from  '../utils/HTTPRequest';
+import HTTPTransport from  '../framework/HTTPRequest';
 
 export abstract class BaseAPI {
     protected http: HTTPTransport;
@@ -15,6 +15,7 @@ export abstract class BaseAPI {
     
     delete() { throw new Error('Not implemented'); }
 }
+
 
 
 

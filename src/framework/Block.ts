@@ -1,5 +1,5 @@
 import EventBus from './EventBus';
-import Handlebars from 'handlebars';
+import * as Handlebars from 'handlebars';
 import Router from './router';
 
 interface Props { 
